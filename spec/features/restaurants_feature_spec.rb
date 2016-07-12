@@ -42,6 +42,16 @@ feature 'restaurants' do
       expect(page).to have_content 'High quality mexican food'
     end
 
+    scenario 'rate a restaurant' do
+      visit '/restaurants'
+      click_link('Lupita')
+      choose(4)
+      fill_in('comment_form', with: 'Tasty food')
+      click_on('submit review')
+      expect(page).to have_content('Tasty food')
+      expect(page).to have_content('Average Rating: 4')
+    end
+
   end
 
   context 'restaurant creation' do
