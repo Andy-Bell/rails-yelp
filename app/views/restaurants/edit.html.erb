@@ -1,0 +1,13 @@
+<h1>Edit a Restaurant</h1>
+
+Current name: <br>
+<%= @restaurant.name %><br><br>
+
+Current description: <br>
+<%= @restaurant.description %><br>
+
+<%= form_for @restaurant do |f| %>
+Name: <%= f.text_field :name %>
+Description: <%= f.text_field :description %>
+<%= f.submit :submit %>
+<% end %>

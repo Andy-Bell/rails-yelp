@@ -22,10 +22,4 @@ ActiveRecord::Schema.define(version: 20160712125335) do
     t.text     "description"
   end
 
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end
