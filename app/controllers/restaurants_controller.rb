@@ -14,8 +14,6 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    p params
-    p Restaurant.all
   end
 
   def destroy
