@@ -3,6 +3,7 @@
   <% @restaurants.each do |restaurant|%>
     <li>
       <a href=""><%= restaurant.name %></a>
+      <%= restaurant.description %>
     </li>
   <% end %>
 </ul>
