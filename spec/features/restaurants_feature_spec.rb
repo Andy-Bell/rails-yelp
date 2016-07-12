@@ -45,8 +45,9 @@ feature 'restaurants' do
     scenario 'rate a restaurant' do
       visit '/restaurants'
       click_link('Lupita')
-      choose(4)
-      fill_in('comment_form', with: 'Tasty food')
+      click_link('Review')
+      select '4', from: :review_rating
+      fill_in('review_comments', with: 'Tasty food')
       click_on('submit review')
       expect(page).to have_content('Tasty food')
       expect(page).to have_content('Average Rating: 4')
