@@ -32,7 +32,7 @@ feature 'restaurants' do
       click_link('add_restaurant')
       fill_in('restaurant_name', with: 'Pizza Express')
       fill_in('restaurant_description', with: 'Makes pizza and pasta')
-      click('submit')
+      click_on('submit')
       expect(page).to have_content('Pizza Express')
       expect(page).to have_content('Makes pizza and pasta')
     end
