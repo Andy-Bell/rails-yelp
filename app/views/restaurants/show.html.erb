@@ -1,0 +1,5 @@
+<h1> <%= @restaurant.name %> </h1>
+<p><%= @restaurant.description %></p>
+
+<p><%= link_to "Delete #{@restaurant.name}", restaurant_path(@restaurant), method: :delete %></p>
+<p><%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant)%></p>

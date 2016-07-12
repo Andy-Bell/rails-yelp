@@ -16,12 +16,30 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
-      Restaurant.create(name: 'Lupita')
+      Restaurant.create(name: 'Lupita', description: 'Mexican')
     end
 
     scenario 'display restaurants' do
       visit '/restaurants'
       expect(page).to have_content('Lupita')
+    end
+
+    scenario 'delete a restaurant' do
+      visit '/restaurants'
+      click_link('Lupita')
+      expect(page).to have_content('Lupita')
+      click_on('Delete')
+      expect(page).not_to have_content('Lupita')
+    end
+
+    scenario 'edit details' do
+      visit '/restaurants'
+      click_link('Lupita')
+      expect(page).to have_content('Mexican')
+      click_on('Edit')
+      fill_in('restaurant_description', with: 'High quality mexican food')
+      click_on('submit')
+      expect(page).to have_content 'High quality mexican food'
     end
 
   end
