@@ -16,6 +16,7 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
+      sign_up
       Restaurant.create(name: 'Lupita', description: 'Mexican')
     end
 
