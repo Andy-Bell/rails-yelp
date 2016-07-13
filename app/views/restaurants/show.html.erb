@@ -9,11 +9,12 @@
 </p>
 
 Average Rating: <%= @average %>
-<ul>
+<ul id='reviews'>
   <% @restaurant.reviews.each do |review| %>
     <li>
       Rating = <%= review.rating %>/5
       <%= review.comments %>
+      Review added by = <%= User.find(review.user_id).email %>
     </li>
   <% end %>
 </ul>
