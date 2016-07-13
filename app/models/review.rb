@@ -10,6 +10,6 @@ class Review < ApplicationRecord
     restaurant = Restaurant.find(self.restaurant_id)
     # p restaurant
     # # restaurant.user_id != self.user_id
-    errors.add(:user_id, 'error') unless restaurant.user_id != self.user_id
+    errors.add(:user_id, 'You cannot review a restaurant on your account.') unless restaurant.user_id != self.user_id
   end
 end

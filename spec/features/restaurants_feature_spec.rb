@@ -60,7 +60,7 @@ feature 'restaurants' do
       click_link('Gaucho')
       rate_restaurant(4, 'Just the best Argentinian steak')
       expect(page).not_to have_content('Just the best Argentinian steak')
-      expect(page).to have_content('error')
+      expect(page).to have_content('You cannot review a restaurant on your account.')
     end
 
   end

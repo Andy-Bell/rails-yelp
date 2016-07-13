@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to restaurant_path(@restaurant)
     else
-      @review.errors.full_messages
+      flash.now[:notice] = 'You cannot review a restaurant on your account.'
       render 'new'
     end
   end
