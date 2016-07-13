@@ -16,6 +16,7 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
+      sign_up
       Restaurant.create(name: 'Lupita', description: 'Mexican')
     end
 
@@ -43,6 +44,7 @@ feature 'restaurants' do
     end
 
     scenario 'rate a restaurant' do
+
       visit '/restaurants'
       click_link('Lupita')
       click_link('Review')
