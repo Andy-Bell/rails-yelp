@@ -24,55 +24,55 @@ feature 'restaurants' do
       expect(page).to have_content('Lupita')
     end
 
-    scenario 'delete a restaurant' do
-      visit '/restaurants'
-      click_link('Lupita')
-      expect(page).to have_content('Lupita')
-      click_on('Delete')
-      expect(page).not_to have_content('Lupita')
+    context 'Lupita restaurant' do
+      before(:each) do
+        visit '/restaurants'
+        click_link('Lupita')
+      end
+
+      scenario 'delete a restaurant' do
+        expect(page).to have_content('Lupita')
+        click_on('Delete')
+        expect(page).not_to have_content('Lupita')
+      end
+
+      scenario 'edit details' do
+        expect(page).to have_content('Mexican')
+        edit_restaurant('Lupita', 'High quality mexican food')
+        expect(page).to have_content 'High quality mexican food'
+      end
+
+      scenario 'rate a restaurant' do
+        rate_restaurant(4, 'Tasty food')
+        expect(page).to have_content('Tasty food')
+        expect(page).to have_content('Average Rating: 4')
+      end
+
     end
 
-    scenario 'edit details' do
+    scenario 'unable to rate own restaurant' do
+      sign_up
       visit '/restaurants'
-      click_link('Lupita')
-      expect(page).to have_content('Mexican')
-      click_on('Edit')
-      fill_in('restaurant_description', with: 'High quality mexican food')
-      click_on('submit')
-      expect(page).to have_content 'High quality mexican food'
-    end
-
-    scenario 'rate a restaurant' do
-      visit '/restaurants'
-      click_link('Lupita')
-      click_link('Review')
-      select '4', from: :review_rating
-      fill_in('review_comments', with: 'Tasty food')
-      click_on('submit review')
-      expect(page).to have_content('Tasty food')
-      expect(page).to have_content('Average Rating: 4')
+      click_link('add_restaurant')
+      add_restaurant('Gaucho', 'Fabulous steak')
+      click_link('Gaucho')
+      rate_restaurant(4, 'Just the best Argentinian steak')
+      expect(page).not_to have_content('Just the best Argentinian steak')
+      expect(page).to have_content('error')
     end
 
   end
 
   context 'restaurant creation' do
     scenario 'allows creation of restaurant' do
-      visit '/restaurants'
-      click_link('add_restaurant')
-      fill_in('restaurant_name', with: 'Pizza Express')
-      fill_in('restaurant_description', with: 'Makes pizza and pasta')
-      click_on('submit')
+      add_restaurant('Pizza Express','Makes pizza and pasta')
       expect(page).to have_content('Pizza Express')
       expect(page).to have_content('Makes pizza and pasta')
     end
 
     context 'add an invalid restaurant' do
       scenario 'it does not let you submit a name that is too short' do
-        visit '/restaurants'
-        click_link('add_restaurant')
-        fill_in('restaurant_name', with: 'KF')
-        fill_in('restaurant_description', with: 'Fried chicken')
-        click_on('submit')
+        add_restaurant('KF', 'Fried chicken')
         expect(page).not_to have_content('KF')
         expect(page).to have_content('error')
       end
