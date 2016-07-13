@@ -51,8 +51,9 @@ feature 'restaurants' do
 
     end
 
+
+
     scenario 'unable to rate own restaurant' do
-      sign_up
       visit '/restaurants'
       click_link('add_restaurant')
       add_restaurant('Gaucho', 'Fabulous steak')
@@ -65,6 +66,10 @@ feature 'restaurants' do
   end
 
   context 'restaurant creation' do
+    before(:each) do
+      sign_up
+    end
+
     scenario 'allows creation of restaurant' do
       add_restaurant('Pizza Express','Makes pizza and pasta')
       expect(page).to have_content('Pizza Express')
