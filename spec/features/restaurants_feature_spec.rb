@@ -65,6 +65,18 @@ feature 'restaurants' do
       expect(page).to have_content('Pizza Express')
       expect(page).to have_content('Makes pizza and pasta')
     end
+
+    context 'add an invalid restaurant' do
+      scenario 'it does not let you submit a name that is too short' do
+        visit '/restaurants'
+        click_link('add_restaurant')
+        fill_in('restaurant_name', with: 'KF')
+        fill_in('restaurant_description', with: 'Fried chicken')
+        click_on('submit')
+        expect(page).not_to have_content('KF')
+        expect(page).to have_content('error')
+      end
+    end
   end
 
 
