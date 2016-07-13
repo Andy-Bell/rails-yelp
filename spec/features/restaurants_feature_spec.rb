@@ -74,7 +74,7 @@ feature 'restaurants' do
         fill_in('restaurant_description', with: 'Fried chicken')
         click_on('submit')
         expect(page).not_to have_content('KF')
-        expect(page).to have_content('Error')
+        expect(page).to have_content('error')
       end
     end
   end
