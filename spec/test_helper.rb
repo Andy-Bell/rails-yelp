@@ -28,3 +28,11 @@ def rate_restaurant(rating, comment)
   fill_in('review_comments', with: comment)
   click_on('submit review')
 end
+
+def log_in(email: 'test@test.com', password: 'testtest')
+  visit('/')
+  click_on('Sign in')
+  fill_in 'user_email', with: email
+  fill_in 'user_password', with: password
+  click_on('Log in')
+end

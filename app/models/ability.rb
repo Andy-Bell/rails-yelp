@@ -6,9 +6,13 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
       can :read, :all
-      if user.id 
+      if user.id
         can :create, Restaurant
+        # can :update, Restaurant, :restaurant => {id: restaurant.user_id}
+        can :delete, Restaurant, user_id: user.id
+        can :update, Restaurant, user_id: user.id
       end
+
       # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions

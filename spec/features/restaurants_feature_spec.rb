@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+  let!(:user) do
+    User.create(email: 'test@test.com', password: 'testtest', password_confirmation: 'testtest')
+  end
+
   context 'no restaurants have been added' do
+    before do
+      log_in
+    end
+
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
       expect(page).to have_link('add_restaurant')
@@ -16,8 +24,8 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
-      sign_up
       Restaurant.create(name: 'Lupita', description: 'Mexican')
+      log_in
     end
 
     scenario 'display restaurants' do
@@ -33,14 +41,12 @@ feature 'restaurants' do
 
       scenario 'delete a restaurant' do
         expect(page).to have_content('Lupita')
-        click_on('Delete')
-        expect(page).not_to have_content('Lupita')
+        expect(page).not_to have_content('Delete Lupita')
       end
 
       scenario 'edit details' do
-        expect(page).to have_content('Mexican')
-        edit_restaurant('Lupita', 'High quality mexican food')
-        expect(page).to have_content 'High quality mexican food'
+        expect(page).to have_content('Lupita')
+        expect(page).not_to have_content('Edit Lupita')
       end
 
       scenario 'rate a restaurant' do
@@ -67,7 +73,7 @@ feature 'restaurants' do
 
   context 'restaurant creation' do
     before(:each) do
-      sign_up
+      log_in
     end
 
     scenario 'allows creation of restaurant' do
