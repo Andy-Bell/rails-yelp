@@ -1,12 +1,16 @@
 class ReviewsController < ApplicationController
+
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :review, :through => :restaurant
+
+
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = Review.new
+    # p @review
+    # @review = Review.new
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.new(review_params)
+    # @review = @restaurant.reviews.new(review_params)
     @review.user_id = current_user.id
     if @review.save
       redirect_to restaurant_path(@restaurant)

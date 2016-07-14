@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 feature 'restaurants' do
-  let!(:user) do
-    User.create(email: 'test@test.com', password: 'testtest', password_confirmation: 'testtest')
+  let!(:lupita_owner) do
+    User.create(email: 'owner@test.com', password: 'testtest', password_confirmation: 'testtest')
+  end
+
+  let!(:reviewer) do
+    User.create(email: 'reviewer@test.com', password: 'testtest', password_confirmation: 'testtest')
   end
 
   context 'no restaurants have been added' do
     before do
-      log_in
+      log_in(email: 'owner@test.com')
     end
 
     scenario 'should display a prompt to add a restaurant' do
@@ -24,8 +28,8 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
-      Restaurant.create(name: 'Lupita', description: 'Mexican')
-      log_in
+      log_in(email: 'reviewer@test.com', password: 'testtest')
+      Restaurant.create(name: 'Lupita', description: 'Mexican', user_id: lupita_owner.id)
     end
 
     scenario 'display restaurants' do
@@ -49,31 +53,13 @@ feature 'restaurants' do
         expect(page).not_to have_content('Edit Lupita')
       end
 
-      scenario 'rate a restaurant' do
-        rate_restaurant(4, 'Tasty food')
-        expect(page).to have_content('Tasty food')
-        expect(page).to have_content('Average Rating: 4')
-      end
-
-    end
-
-
-
-    scenario 'unable to rate own restaurant' do
-      visit '/restaurants'
-      click_link('add_restaurant')
-      add_restaurant('Gaucho', 'Fabulous steak')
-      click_link('Gaucho')
-      rate_restaurant(4, 'Just the best Argentinian steak')
-      expect(page).not_to have_content('Just the best Argentinian steak')
-      expect(page).to have_content('You cannot review a restaurant on your account.')
     end
 
   end
 
   context 'restaurant creation' do
     before(:each) do
-      log_in
+      log_in(email: 'owner@test.com')
     end
 
     scenario 'allows creation of restaurant' do

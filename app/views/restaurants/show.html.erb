@@ -9,9 +9,11 @@
 <p><%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant)%></p>
 <% end %>
 
+<% if can? :create, @restaurant => Review %>
 <p>
   <%= link_to "Review #{@restaurant.name}", new_restaurant_review_path(@restaurant) %>
 </p>
+<% end %>
 
 Average Rating: <%= @average %>
 <ul id='reviews'>
@@ -19,7 +21,7 @@ Average Rating: <%= @average %>
     <li>
       Rating = <%= review.rating %>/5
       <%= review.comments %>
-      Review added by = <%= User.find(review.user_id).email %>
+      Review added by = <%= review.user.email %>
     </li>
   <% end %>
 </ul>

@@ -4,6 +4,8 @@ class Review < ApplicationRecord
   include ActiveModel::Validations
   validates :rating, inclusion: (1..5)
   validate :user_different_to_reviewer?
+  belongs_to :restaurant
+  belongs_to :user
 
   def user_different_to_reviewer?
     # p self

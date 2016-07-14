@@ -7,10 +7,16 @@ class Ability
     user ||= User.new # guest user (not logged in)
       can :read, :all
       if user.id
+        can :read, User, id: user.id
         can :create, Restaurant
-        # can :update, Restaurant, :restaurant => {id: restaurant.user_id}
         can :delete, Restaurant, user_id: user.id
         can :update, Restaurant, user_id: user.id
+        can :create, Review
+        cannot :create, Review, :restaurant => { :user_id => user.id}
+        # cannot :manage, Review do |review|
+        #   owner_id = Restaurant.find(review.restaurant_id).user_id
+        #   owner_id == user.id
+        # end
       end
 
       # The first argument to `can` is the action you are giving the user
