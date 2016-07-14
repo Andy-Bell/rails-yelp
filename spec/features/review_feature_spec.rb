@@ -24,6 +24,6 @@ feature 'restaurants review' do
     sign_up(email: 'm@test.com')
     click_link 'KFC'
     rate_restaurant(2, 'Food was fine')
-    expect(page).to have_content('Average Rating: 3')
+    expect(page).to have_content('Average rating: ★★★☆☆')
   end
 end

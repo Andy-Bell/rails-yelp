@@ -46,7 +46,7 @@ feature 'restaurants' do
       scenario 'rate a restaurant' do
         rate_restaurant(4, 'Tasty food')
         expect(page).to have_content('Tasty food')
-        expect(page).to have_content('Average Rating: 4')
+        expect(page).to have_content('Average rating: ★★★★☆')
       end
 
     end

@@ -15,4 +15,23 @@ describe 'Restaurant' do
       expect(restaurant).not_to be_valid
     end
   end
+
+  describe '#average_rating' do
+
+    context 'there are no reviews' do
+      it 'returns N/A when there are no reviews' do
+        restaurant = Restaurant.create(name: 'Andys Place')
+        expect(restaurant.average_review_score).to eq 'N/A'
+      end
+    end
+
+    context 'two reviews' do
+      it 'accurately calculates the average rating' do
+        restaurant = Restaurant.create(name: 'Andys Place')
+        restaurant.reviews.create(rating: 4, comments: 'Nice')
+        restaurant.reviews.create(rating: 2, comments: 'A hell hole')
+        expect(restaurant.average_review_score).to eq 3
+      end
+    end
+  end
 end
