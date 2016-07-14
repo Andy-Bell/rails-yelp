@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  load_and_authorize_resource
   def index
     @restaurants = Restaurant.all
   end
@@ -10,6 +11,7 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.user_id = current_user.id
+    # authorize! :create, @restaurant
     if @restaurant.save
       redirect_to '/restaurants'
     else
@@ -36,6 +38,7 @@ class RestaurantsController < ApplicationController
   def update
     Restaurant.update(restaurant_params)
     @restaurant = Restaurant.find(params[:id])
+    # authorize! :update, @restaurant
     redirect_to restaurant_path(@restaurant)
   end
 
