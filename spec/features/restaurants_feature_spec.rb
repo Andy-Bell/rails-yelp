@@ -51,8 +51,6 @@ feature 'restaurants' do
 
     end
 
-
-
     scenario 'unable to rate own restaurant' do
       visit '/restaurants'
       click_link('add_restaurant')
