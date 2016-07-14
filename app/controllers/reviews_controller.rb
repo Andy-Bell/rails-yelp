@@ -8,11 +8,12 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.new(review_params)
     @review.user_id = current_user.id
-      if @review.save
-        redirect_to restaurant_path(@restaurant)
-      else
-        render new
-      end
+    if @review.save
+      redirect_to restaurant_path(@restaurant)
+    else
+      flash.now[:notice] = 'You cannot review a restaurant on your account.'
+      render 'new'
+    end
   end
 
   private
