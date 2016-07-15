@@ -8,7 +8,7 @@
   <%= link_to "Review #{@restaurant.name}", new_restaurant_review_path(@restaurant) %>
 </p>
 
-Average Rating: <%= @average %>
+Average rating: <%= star_rating(@restaurant.average_review_score) %>
 <ul id='reviews'>
   <% @restaurant.reviews.each do |review| %>
     <li>

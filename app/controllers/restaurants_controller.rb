@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @average = average_review_score
+    @average = @restaurant.average_review_score
   end
 
   def destroy
@@ -45,13 +45,5 @@ private
     params.require(:restaurant).permit(:name, :description)
   end
 
-  def average_review_score
-    return "N/A" if @restaurant.reviews.length == 0
-    total = 0
-    @restaurant.reviews.each do |review|
-      total += review.rating
-    end
-    total / @restaurant.reviews.length
-  end
 
 end

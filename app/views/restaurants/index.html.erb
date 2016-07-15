@@ -4,6 +4,7 @@
     <li>
       <%= link_to restaurant.name, restaurant_path(restaurant) %>
       <%= restaurant.description %>
+      Rating: <%= star_rating(restaurant.average_review_score) %>
     </li>
   <% end %>
 </ul>
